@@ -1,0 +1,23 @@
+[project]
+name = "archon"
+version = "0.0.1"
+description = "Archon Agent for Software Architecture Design"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.uv]
+package = true
+
+[project.scripts]
+archon = "archon.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/archon"]
+
+[dependency-groups]
+dev = [
+    "black>=26.1.0",
+    "isort>=7.0.0",
+    "mypy>=1.19.1",
+]
