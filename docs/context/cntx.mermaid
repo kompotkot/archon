@@ -1,0 +1,18 @@
+---
+config:
+  theme: dark
+  layout: elk
+---
+flowchart TB
+ subgraph repo["Project Repository<br>[System]"]
+   definitions["Project Definitions<br>[Data]<br>Description, constraints and requirements"]
+   docs["Project Documentation<br>[Data]<br>Technical docs, plans and backlogs"]
+   diagrams["Project Diagrams<br>[Data]<br>System Context, Containers, Components, Code"]
+  end
+  archon_agent["Archon Agent<br>[System]"] -- Visualize design decisions described in text --> diagrams
+  archon_agent -- Verify rule consistency, reduce architectural drift --> definitions
+  archon_agent -- Reflect the design workflow within the plan and update documentation --> definitions
+  architect["Architect/Developer<br>[Person]<br>System Vision"] -- Run design iteration according to stage --> archon_agent
+  architect -- Build project concept and set requirements with constraints --> definitions
+  architect -- "Update up-to-date mental model across system architecture" --> docs
+  architect -- Trace system boundaries and design decisions --> diagrams
