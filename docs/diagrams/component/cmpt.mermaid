@@ -1,0 +1,26 @@
+---
+config:
+  theme: dark
+  layout: elk
+---
+flowchart TB
+ subgraph archon["Archon<br>[Software System]"]
+        expert_agent["Expert Agent<br>[Software System]<br>Solution and detail architect, processing system brief"]
+        synth_agent["Synthetic Agent<br>[Software System]<br>Define nodes and edges"]
+        doc_rules["Documentation Ruleset<br>[Software System]<br>Methodology and semantic criteria"]
+        diags_agent["Diagram Agent<br>[Software System]<br>Draw diagrams"]
+        diags_rules["Diagram Ruleset<br>[Software System]<br>Diagram guidelines and structural criteria"]
+  end
+    expert_agent -- Notes on plans, changes, and key implementations --> handbook["Handbook<br>[Data]"]
+    synth_agent -- Storing textual diagram representation --> handbook
+    diagrams["Diagrams<br>[Data]"] -- Get naming and edge existing state --> synth_agent
+    definitions["Definitions<br>[Data]"] -- Specify ouput requirements, define design limitations and get project overview --> expert_agent
+    expert_agent -- Execute design sequence with state --> synth_agent
+    synth_agent -- Visualize textual report --> diags_agent
+    diags_agent -- Verify diagram consistency --> diags_rules
+    diags_rules --> diags_agent
+    synth_agent -- Verify syntactic integrity --> doc_rules
+    doc_rules --> synth_agent
+    architect["Architect/Developer<br>[Person]<br>System Vision"] -- Run design iteration according to stage --> expert_agent
+    diagrams -- Get existing diagrams state depends on stage --> expert_agent
+    diags_agent -- Push diagrams depends on stage --> diagrams

@@ -5,7 +5,7 @@ config:
 ---
 flowchart TB
  subgraph definitions["Definitions<br>[Data]"]
-        defs_desc["Description and Domain<br>[Data]<br>System concept, overview, goals and details"]
+        defs_desc["Description<br>[Data]<br>System concept, overview, goals and details"]
         defs_cons["Constraints<br>[Data]<br>Mandatory technologies, requirements and limits"]
         defs_req["Requirements<br>[Data]<br>System conditions, defined behaviors and attributes"]
   end
@@ -14,24 +14,24 @@ flowchart TB
         diags_cntr["Container<br>[Data]<br>High-level technology building blocks as units"]
         diags_cmpt["Component<br>[Data]<br>Structure of modules/controllers and collaborations"]
   end
- subgraph docs["Documentation<br>[Data]"]
-        docs_tech["Technical Documentation<br>[Data]<br>Plans and guidelines"]
-        docs_artf["Artifacts<br>[Data]<br>Design iterations and decision records"]
+ subgraph handbook["Handbook<br>[Data]"]
+        hb_tech["Documentation<br>[Data]<br>Plans and guidelines"]
+        hb_artf["Artifacts<br>[Data]<br>Design iterations and decision records"]
   end
  subgraph repo["Project Repository<br>[System]"]
         definitions
         diagrams
-        docs
+        handbook
   end
  subgraph archon["Archon<br>[Software System]"]
-        expert_agent["Expert Agent<br>[Software System]<br>Solution and detail architect"]
+        expert_agent["Expert Agent<br>[Software System]<br>Solution and detail architect, processing system brief"]
         synth_agent["Synthetic Agent<br>[Software System]<br>Define nodes and edges"]
-        doc_rules["Documentation Ruleset<br>[Software System]<br>Concept and key definitions of the methodology"]
+        doc_rules["Documentation Ruleset<br>[Software System]<br>Methodology and semantic criteria"]
         diags_agent["Diagram Agent<br>[Software System]<br>Draw diagrams"]
-        diags_rules["Diagram Ruleset<br>[Software System]<br>Diagram guidelines"]
+        diags_rules["Diagram Ruleset<br>[Software System]<br>Diagram guidelines and structural criteria"]
   end
-    expert_agent -- Notes on plans, changes, and key implementations --> docs_tech
-    synth_agent -- Storing textual diagram representation --> docs_artf
+    expert_agent -- Notes on plans, changes, and key implementations --> hb_tech
+    synth_agent -- Storing textual diagram representation --> hb_artf
     diagrams -- Get naming and edge existing state --> synth_agent
     defs_req -- Specify ouput requirements --> expert_agent
     defs_cons -- Define design limitations --> expert_agent
@@ -40,8 +40,8 @@ flowchart TB
     architect -- Limit decision shift --> defs_cons
     architect -- Build core concept and description of the product --> defs_desc
     architect -- Run design iteration according to stage --> expert_agent
-    architect -- Verify assumptions according with design --> docs_tech
-    architect -- Track desigion changes in history --> docs_artf
+    architect -- Verify assumptions according with design --> hb_tech
+    architect -- Track desigion changes in history --> hb_artf
     expert_agent -- Execute design sequence with state --> synth_agent
     synth_agent -- Visualize textual report --> diags_agent
     diags_agent -- Verify diagram consistency --> diags_rules
