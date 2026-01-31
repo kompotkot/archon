@@ -4,15 +4,15 @@ config:
   layout: elk
 ---
 flowchart TB
- subgraph repo["Project Repository<br>[System]"]
-   definitions["Project Definitions<br>[Data]<br>Description, constraints and requirements"]
-   docs["Project Documentation<br>[Data]<br>Technical docs, plans and backlogs"]
-   diagrams["Project Diagrams<br>[Data]<br>System Context, Containers, Components, Code"]
+ subgraph repo["Project Repository<br>[Software System]"]
+        definitions["Definitions<br>[Data]<br>Description, constraints and requirements"]
+        artifacts["Artifacts<br>[Data]<br>Technical docs, queue and backlogs"]
+        diagrams["Diagrams<br>[Data]<br>System Context, Containers, Components, Code"]
   end
-  archon_agent["Archon Agent<br>[System]"] -- Visualize design decisions described in text --> diagrams
-  archon_agent -- Verify rule consistency, reduce architectural drift --> definitions
-  archon_agent -- Reflect the design workflow within the plan and update documentation --> definitions
-  architect["Architect/Developer<br>[Person]<br>System Vision"] -- Run design iteration according to stage --> archon_agent
-  architect -- Build project concept and set requirements with constraints --> definitions
-  architect -- "Update up-to-date mental model across system architecture" --> docs
-  architect -- Trace system boundaries and design decisions --> diagrams
+    archon_agent["Archon Agent<br>[Container]"] -- Visualize project decisions described in text --> diagrams
+    archon_agent -- Verify project consistency, reduce architectural drift --> definitions
+    archon_agent -- Reflect the design workflow within the plan and push artifacts --> artifacts
+    architect["Architect/Developer<br>[Person]<br>Project Vision"] -- Run design iteration according to stage --> archon_agent
+    architect -- Define project concept and set requirements with constraints --> definitions
+    architect -- "Keep up-to-date mental model across project architecture" --> artifacts
+    architect -- Trace project boundaries and design decisions --> diagrams
