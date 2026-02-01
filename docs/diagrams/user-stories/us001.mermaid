@@ -1,0 +1,65 @@
+---
+config:
+  theme: dark
+---
+sequenceDiagram
+
+  actor architect as Architect/Developer
+  participant definitions
+  participant us
+  participant diagrams
+  participant artifacts
+  participant expert_agent
+  participant synth_agent
+  participant doc_rules
+  participant diags_agent
+  participant diags_rules
+autonumber
+
+box Project Repository
+  participant definitions as Definitions
+  participant artifacts as Artifacts
+  participant us as User Stories
+  participant diagrams as Diagrams
+end
+
+box archon
+  participant expert_agent as Expert Agent
+  participant synth_agent as Synthetic Agent
+  participant doc_rules as Documentation Ruleset
+  participant diags_agent as Diagram Agent
+  participant diags_rules as Diagram Ruleset
+end
+
+  architect->>definitions: Create Description, Constraints, Requirements for project
+  architect->>expert_agent: Run design iteration to generate C4 level
+  expert_agent->>definitions: Fetch project initial data
+  definitions->>expert_agent: Load system concept, constraints, requirements
+  expert_agent->>us: Fetch user stories
+  us->>expert_agent: Load user stories
+  expert_agent->>diagrams: Fetch project diagrams
+  diagrams->>expert_agent: Load existing diagram state (if any)
+  expert_agent->>artifacts: Store architecture decision analysis
+  expert_agent->>artifacts: Record prompts and messages
+
+  expert_agent->>synth_agent: Provide analysis for view synthesis
+  synth_agent->>diagrams: Fetch project diagram node names and structure
+  diagrams->>synth_agent: Load existing diagram naming and structure (if any)
+  synth_agent->>doc_rules: Validate C4 semantics and naming consistency
+  doc_rules-->>synth_agent: Validation corrections
+
+  synth_agent->>artifacts: Save text-based View
+  synth_agent->>artifacts: Enqueue visualization task diagram
+  synth_agent->>artifacts: Record prompts and messages
+
+  diags_agent->>artifacts: Pull next visualization task
+  artifacts-->>diags_agent: Diagram task details
+  diags_agent->>artifacts: Fetch text-based View
+  artifacts->>diags_agent: Load text-based View
+
+  diags_agent->>diags_rules: Validate diagram structure and rules
+  diags_rules-->>diags_agent: Diagram validation
+
+  diags_agent->>diagrams: Write diagram to `docs/diagrams/`
+  diags_agent->>artifacts: Mark task completed
+  diags_agent->>artifacts: Record prompts and messages
