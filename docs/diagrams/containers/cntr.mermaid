@@ -8,6 +8,7 @@ flowchart TB
         defs_desc["Description<br>[Data]<br>System concept, overview, goals and details"]
         defs_cons["Constraints<br>[Data]<br>Mandatory technologies, requirements and limits"]
         defs_req["Requirements<br>[Data]<br>System conditions, defined behaviors and attributes"]
+        defs_us["User Stories<br>[Data]<br>User stories, requirements and constraints"]
   end
  subgraph diagrams["Diagrams<br>[Data]"]
         diags_cntx["Context<br>[Data]<br>System in its environment, users and dependencies"]
@@ -39,6 +40,7 @@ flowchart TB
     defs_req -- Introduces requirements for design decisions --> expert_agent
     defs_cons -- Defines project constants and variables --> expert_agent
     defs_desc -- Establishes the system concept and the required solution --> expert_agent
+    defs_us -- Establishes the user stories --> expert_agent
     diagrams -- Get existing diagrams state --> expert_agent
     artf_analysis -- Pull architectural desigion to describe --> synth_agent
     synth_agent -- Verify synthetic integrity --> doc_rules
