@@ -1,0 +1,34 @@
+---
+config:
+  theme: dark
+  layout: elk
+---
+flowchart TB
+ subgraph artifacts["Artifacts<br>[Data]"]
+        artf_transcript["Transcripts<br>[Data]<br>Design records as message history"]
+        artf_analysis["Analysis<br>[Data]<br>Design stage and iteration analysis results"]
+        artf_views["View<br>[Data]<br>Text-based diagram representation"]
+        artf_queue["Queue<br>[Data]<br>Queue of generation tasks"]
+  end
+ subgraph synth_agent["Synthetic Agent<br>[Component]<br>Define nodes and edges"]
+        sa_view_synth["View Synthesizer<br>[Subcomponent]<br>Transforms analysis into strict View text"]
+        sa_structure_sync["Structure Sync<br>[Subcomponent]<br>Reuses node and edge naming from existing diagrams"]
+        sa_rules_adapter["Rules Adapter<br>[Subcomponent]<br>Applies Documentation Ruleset validations"]
+        sa_view_writer["View Writer<br>[Subcomponent]<br>Saves text-based View artifacts"]
+        sa_queue_enq["Queue Enqueuer<br>[Subcomponent]<br>Creates visualization tasks for Diagram Agent"]
+        sa_transcript_writer["Transcript Writer<br>[Subcomponent]<br>Persists prompts and messages"]
+  end
+    sa_view_synth -- Fetch existing naming and structure --> sa_structure_sync
+    sa_structure_sync -- Request validation --> sa_rules_adapter
+    sa_rules_adapter -- Validation corrections --> sa_view_synth
+    sa_view_synth -- Persist view --> sa_view_writer
+    sa_view_writer -- Enqueue render tasks --> sa_queue_enq
+    sa_view_synth -- Record prompts and messages --> sa_transcript_writer
+    expert_agent["Expert Agent<br>[Component]<br>Solution and detail architect, processing system brief"] -- Execute design sequence with state --> sa_view_synth
+    artf_analysis -- Load analysis --> sa_view_synth
+    diagrams["Diagrams<br>[Data]<br>C4 diagrams"] -- Fetch diagram node with edge names and relations --> sa_structure_sync
+    sa_rules_adapter -- Validate C4 semantics and naming --> doc_rules["Documentation Ruleset<br>[Component]<br>Methodology and semantic criteria"]
+    doc_rules -- Validation corrections --> sa_rules_adapter
+    sa_view_writer -- "Save text-based View" --> artf_views
+    sa_queue_enq -- enqueue visualization task --> artf_queue
+    sa_transcript_writer -- Record iterations history --> artf_transcript

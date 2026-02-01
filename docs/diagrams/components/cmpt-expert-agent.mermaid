@@ -1,0 +1,37 @@
+---
+config:
+  theme: dark
+  layout: elk
+---
+flowchart TB
+ subgraph definitions["Definitions<br>[Data]"]
+        defs_desc["Description<br>[Data]<br>System concept, overview, goals and details"]
+        defs_cons["Constraints<br>[Data]<br>Mandatory technologies, requirements and limits"]
+        defs_req["Requirements<br>[Data]<br>System conditions, defined behaviors and attributes"]
+        defs_us["User Stories<br>[Data]<br>User stories, requirements and constraints"]
+  end
+ diagrams["Diagrams<br>[Data]<br>C4 diagrams"]
+ subgraph artifacts["Artifacts<br>[Data]"]
+        artf_transcript["Transcripts<br>[Data]<br>Design records as message history"]
+        artf_analysis["Analysis<br>[Data]<br>Design stage and iteration analysis results"]
+  end
+ subgraph expert_agent["Expert Agent<br>[Component]<br>Solution and detail architect, processing system analysis"]
+        ea_orchestrator["EA Orchestrator<br>[Subcomponent]<br>Coordinates the design iteration"]
+        ea_context_loader["Context Loader<br>[Subcomponent]<br>Loads definitions and existing diagrams"]
+        ea_arch_analyzer["Architecture Analyzer<br>[Subcomponent]<br>Produces scoped architectural decisions"]
+        ea_analysis_writer["Analysis Writer<br>[Subcomponent]<br>Persists decision analysis"]
+        ea_transcript_writer["Transcript Writer<br>[Subcomponent]<br>Persists prompts and messages"]
+  end
+    ea_orchestrator -- "Ingest project context" --> ea_context_loader
+    ea_orchestrator -- "Run analysis per scope" --> ea_arch_analyzer
+    ea_arch_analyzer -- "Write raw analysis" --> ea_analysis_writer
+    ea_orchestrator -- "Record prompts and messages" --> ea_transcript_writer
+    architect["Architect/Developer<br>[Person]<br>System Vision"] -- Execute design iteration --> ea_orchestrator
+    defs_desc -- "Establish system concept" --> ea_context_loader
+    defs_cons -- "Constrain decisions" --> ea_context_loader
+    defs_req -- "Introduce requirements" --> ea_context_loader
+    defs_us -- "Provide user stories" --> ea_context_loader
+    diagrams -- "Load existing diagram state" --> ea_context_loader
+    ea_analysis_writer -- "Store structured analysis summary" --> artf_analysis
+    ea_transcript_writer -- "Record iterations history" --> artf_transcript
+    ea_orchestrator -- "Execute design sequence with state" --> synth_agent["Synthetic Agent<br>[Component]<br>Define nodes and edges"]

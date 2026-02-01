@@ -9,10 +9,10 @@ flowchart TB
         artifacts["Artifacts<br>[Data]<br>Technical docs, queue and backlogs"]
         diagrams["Diagrams<br>[Data]<br>System Context, Containers, Components, Code"]
   end
-    archon_agent["Archon Agent<br>[Container]"] -- Visualize project decisions described in text --> diagrams
-    archon_agent -- Verify project consistency, reduce architectural drift --> definitions
-    archon_agent -- Reflect the design workflow within the plan and push artifacts --> artifacts
-    architect["Architect/Developer<br>[Person]<br>Project Vision"] -- Run design iteration according to stage --> archon_agent
-    architect -- Define project concept and set requirements with constraints --> definitions
+    archon_agent["Archon Agent<br>[Container]"] -- "Visualize project decisions described in text" --> diagrams
+    archon_agent -- "Verify project consistency, reduce architectural drift" --> definitions
+    archon_agent -- "Reflect the design workflow within the plan and push artifacts" --> artifacts
+    architect["Architect/Developer<br>[Person]<br>Project Vision"] -- "Run design iteration according to stage" --> archon_agent
+    architect -- "Define project concept and set requirements with constraints" --> definitions
     architect -- "Keep up-to-date mental model across project architecture" --> artifacts
-    architect -- Trace project boundaries and design decisions --> diagrams
+    architect -- "Trace project boundaries and design decisions" --> diagrams

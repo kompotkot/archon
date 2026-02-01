@@ -1,0 +1,35 @@
+---
+config:
+  theme: dark
+  layout: elk
+---
+flowchart TB
+ subgraph diagrams["Diagrams<br>[Data]"]
+        diags_cntx["Context<br>[Data]<br>System in its environment, users and dependencies"]
+        diags_cntr["Container<br>[Data]<br>High-level technology building blocks as units"]
+        diags_cmpt["Component<br>[Data]<br>Structure of modules/controllers and collaborations"]
+  end
+ subgraph artifacts["Artifacts<br>[Data]"]
+        artf_transcript["Transcripts<br>[Data]<br>Design records as message history"]
+        artf_views["View<br>[Data]<br>Text-based diagram representation"]
+        artf_queue["Queue<br>[Data]<br>Queue of generation tasks"]
+  end
+ subgraph diags_agent["Diagram Agent<br>[Component]<br>Draw diagrams"]
+        da_task_runner["Task Runner<br>[Subcomponent]<br>Pulls and marks tasks in progress/completed"]
+        da_view_loader["View Loader<br>[Subcomponent]<br>Loads text-based View for a task"]
+        da_mermaid_builder["Mermaid Builder<br>[Subcomponent]<br>Converts View into diagram text"]
+        da_rules_adapter["Rules Adapter<br>[Subcomponent]<br>Applies Diagram Ruleset validations"]
+        da_diagram_writer["Diagram Writer<br>[Subcomponent]<br>Writes outputs to diagrams directory"]
+        da_transcript_writer["Transcript Writer<br>[Subcomponent]<br>Persists prompts and messages"]
+  end
+    da_task_runner -- "Fetch task details" --> da_view_loader
+    da_view_loader -- "Build diagram" --> da_mermaid_builder
+    da_mermaid_builder -- "Validate structure" --> da_rules_adapter
+    da_rules_adapter -- "Write diagram" --> da_diagram_writer
+    da_task_runner -- "Record prompts and messages" --> da_transcript_writer
+    artf_queue -- "Pull next visualization task" --> da_task_runner
+    artf_views -- "Fetch text-based view" --> da_view_loader
+    da_rules_adapter -- "Verify diagram consistency" --> diags_rules["Diagram Ruleset<br>[Component]<br>Diagram guidelines and structural criteria"]
+    diags_rules -- "Validation feedback" --> da_rules_adapter
+    da_diagram_writer -- "Write diagrams" --> diagrams
+    da_transcript_writer -- "Record iteration history" --> artf_transcript

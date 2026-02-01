@@ -33,30 +33,30 @@ flowchart TB
         diags_agent["Diagram Agent<br>[Component]<br>Draw diagrams"]
         diags_rules["Diagram Ruleset<br>[Component]<br>Diagram guidelines and structural criteria"]
   end
-    expert_agent -- Records the history of messages and prompts --> artf_transcript
-    expert_agent -- Build architectural desigion for stage --> artf_analysis
-    expert_agent -- Execute design sequence with state --> synth_agent
-    architect["Architect/Developer<br>[Person]<br>System Vision"] -- Run design iteration according to stage --> expert_agent
-    defs_req -- Introduces requirements for design decisions --> expert_agent
-    defs_cons -- Defines project constants and variables --> expert_agent
-    defs_desc -- Establishes the system concept and the required solution --> expert_agent
-    defs_us -- Establishes the user stories --> expert_agent
-    diagrams -- Get existing diagrams state --> expert_agent
-    artf_analysis -- Pull architectural desigion to describe --> synth_agent
-    synth_agent -- Verify synthetic integrity --> doc_rules
+    expert_agent -- "Records the history of messages and prompts" --> artf_transcript
+    expert_agent -- "Build architectural desigion for stage" --> artf_analysis
+    expert_agent -- "Execute design sequence with state" --> synth_agent
+    architect["Architect/Developer<br>[Person]<br>System Vision"] -- "Run design iteration according to stage" --> expert_agent
+    defs_req -- "Introduces requirements for design decisions" --> expert_agent
+    defs_cons -- "Defines project constants and variables" --> expert_agent
+    defs_desc -- "Establishes the system concept and the required solution" --> expert_agent
+    defs_us -- "Establishes the user stories" --> expert_agent
+    diagrams -- "Get existing diagrams state" --> expert_agent
+    artf_analysis -- "Pull architectural desigion to describe" --> synth_agent
+    synth_agent -- "Verify synthetic integrity" --> doc_rules
     doc_rules --> synth_agent
-    synth_agent -- Storing text based view --> artf_views
-    synth_agent -- Create task for exact view to visualize --> artf_queue
-    synth_agent -- Records the history of messages and prompts --> artf_transcript
-    architect -- Set project and system requirements --> defs_req
-    architect -- Limit decision shift --> defs_cons
-    architect -- Build core concept and description of the product --> defs_desc
-    architect -- Verify assumptions according with design --> artf_transcript
-    architect -- Track desigion changes in history --> artf_analysis
-    diags_agent -- Pull opened task to visualize --> artf_queue
+    synth_agent -- "Storing text based view" --> artf_views
+    synth_agent -- "Create task for exact view to visualize" --> artf_queue
+    synth_agent -- "Records the history of messages and prompts" --> artf_transcript
+    architect -- "Set project and system requirements" --> defs_req
+    architect -- "Limit decision shift" --> defs_cons
+    architect -- "Build core concept and description of the product" --> defs_desc
+    architect -- "Verify assumptions according with design" --> artf_transcript
+    architect -- "Track desigion changes in history" --> artf_analysis
+    diags_agent -- "Pull opened task to visualize" --> artf_queue
     artf_queue --> diags_agent
-    artf_views -- Fetch text based view --> diags_agent
-    diagrams -- Get node and edge names of existing state --> diags_agent
-    diags_agent -- Verify diagram consistency --> diags_rules
+    artf_views -- "Fetch text based view" --> diags_agent
+    diagrams -- "Get node and edge names of existing state" --> synth_agent
+    diags_agent -- "Verify diagram consistency" --> diags_rules
     diags_rules --> diags_agent
-    diags_agent -- Push diagrams depends on stage --> diagrams
+    diags_agent -- "Push diagrams depends on stage" --> diagrams
