@@ -29,6 +29,6 @@ flowchart TB
     diagrams["Diagrams<br>[Data]<br>C4 diagrams"] -- Fetch diagram node with edge names and relations --> sa_structure_sync
     sa_rules_adapter -- Validate C4 semantics and naming --> doc_rules["Documentation Ruleset<br>[Component]<br>Methodology and semantic criteria"]
     doc_rules -- Validation corrections --> sa_rules_adapter
-    sa_view_writer -- "Save text-based View" --> artf_views
+    sa_view_writer -- Save text based View --> artf_views
     sa_queue_enq -- enqueue visualization task --> artf_queue
     sa_transcript_writer -- Record iterations history --> artf_transcript

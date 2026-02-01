@@ -1,0 +1,17 @@
+---
+config:
+  theme: dark
+  layout: elk
+---
+flowchart TB
+ subgraph doc_rules["Documentation Ruleset<br>[Component]<br>Methodology and semantic criteria"]
+        dr_engine["Validation Engine<br>[Subcomponent]<br>Applies documentation rules to synthesized views"]
+        dr_c4_semantics["C4 Semantics Rules<br>[Subcomponent]<br>Level boundaries, allowed elements, relationships"]
+        dr_naming["Naming and Taxonomy Rules<br>[Subcomponent]<br>Stable names, consistency across views"]
+        dr_consistency["Cross-View Consistency Rules<br>[Subcomponent]<br>Prevents isolated and inconsistent components"]
+  end
+    dr_engine -- Enforce semantics --> dr_c4_semantics
+    dr_engine -- Enforce naming --> dr_naming
+    dr_engine -- Enforce consistency --> dr_consistency
+    synth_agent["Synthetic Agent<br>[Component]<br>Define nodes and edges"] -- Validate semantics and naming --> dr_engine
+    dr_engine -- Validation corrections --> synth_agent

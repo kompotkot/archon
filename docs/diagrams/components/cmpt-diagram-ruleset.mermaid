@@ -1,0 +1,17 @@
+---
+config:
+  theme: dark
+  layout: elk
+---
+flowchart TB
+ subgraph diags_rules["Diagram Ruleset<br>[Component]<br>Diagram guidelines and structural criteria"]
+        gr_engine["Validation Engine<br>[Subcomponent]<br>Validates diagram structure against rules"]
+        gr_mermaid["Mermaid Conventions<br>[Subcomponent]<br>Direction, subgraphs, labels, readability"]
+        gr_c4_mapping["C4 Mapping Rules<br>[Subcomponent]<br>Ensures diagram encodes correct C4 level semantics"]
+        gr_file_layout["Output Layout Rules<br>[Subcomponent]<br>Ensures diagrams are written to correct folders with names"]
+  end
+    diags_agent["Diagram Agent<br>[Component]<br>Draw diagrams"] -- Validate diagram structure and rules --> gr_engine
+    gr_engine -- Diagram validation feedback --> diags_agent
+    gr_engine -- Apply conventions --> gr_mermaid
+    gr_engine -- Enforce C4 mapping --> gr_c4_mapping
+    gr_engine -- Enforce output layout --> gr_file_layout

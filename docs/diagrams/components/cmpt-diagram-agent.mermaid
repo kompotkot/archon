@@ -22,14 +22,14 @@ flowchart TB
         da_diagram_writer["Diagram Writer<br>[Subcomponent]<br>Writes outputs to diagrams directory"]
         da_transcript_writer["Transcript Writer<br>[Subcomponent]<br>Persists prompts and messages"]
   end
-    da_task_runner -- "Fetch task details" --> da_view_loader
-    da_view_loader -- "Build diagram" --> da_mermaid_builder
-    da_mermaid_builder -- "Validate structure" --> da_rules_adapter
-    da_rules_adapter -- "Write diagram" --> da_diagram_writer
-    da_task_runner -- "Record prompts and messages" --> da_transcript_writer
-    artf_queue -- "Pull next visualization task" --> da_task_runner
-    artf_views -- "Fetch text-based view" --> da_view_loader
-    da_rules_adapter -- "Verify diagram consistency" --> diags_rules["Diagram Ruleset<br>[Component]<br>Diagram guidelines and structural criteria"]
-    diags_rules -- "Validation feedback" --> da_rules_adapter
-    da_diagram_writer -- "Write diagrams" --> diagrams
-    da_transcript_writer -- "Record iteration history" --> artf_transcript
+    da_task_runner -- Fetch task details --> da_view_loader
+    da_view_loader -- Build diagram --> da_mermaid_builder
+    da_mermaid_builder -- Validate structure --> da_rules_adapter
+    da_rules_adapter -- Write diagram --> da_diagram_writer
+    da_task_runner -- Record prompts and messages --> da_transcript_writer
+    artf_queue -- Pull next visualization task --> da_task_runner
+    artf_views -- Fetch text based view --> da_view_loader
+    da_rules_adapter -- Verify diagram consistency --> diags_rules["Diagram Ruleset<br>[Component]<br>Diagram guidelines and structural criteria"]
+    diags_rules -- Validation feedback --> da_rules_adapter
+    da_diagram_writer -- Write diagrams --> diagrams
+    da_transcript_writer -- Record iteration history --> artf_transcript
