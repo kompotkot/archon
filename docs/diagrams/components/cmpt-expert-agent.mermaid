@@ -6,8 +6,7 @@ config:
 flowchart TB
  subgraph definitions["Definitions<br>[Data]"]
         defs_desc["Description<br>[Data]<br>System concept, overview, goals and details"]
-        defs_cons["Constraints<br>[Data]<br>Mandatory technologies, requirements and limits"]
-        defs_req["Requirements<br>[Data]<br>System conditions, defined behaviors and attributes"]
+        defs_req["Requirements<br>[Data]<br>System conditions, technologies, defined behaviors and attributes"]
         defs_us["User Stories<br>[Data]<br>User stories, requirements and constraints"]
   end
  diagrams["Diagrams<br>[Data]<br>C4 diagrams"]
@@ -28,8 +27,7 @@ flowchart TB
     ea_orchestrator -- Record prompts and messages --> ea_transcript_writer
     architect["Architect/Developer<br>[Person]<br>System Vision"] -- Execute design iteration --> ea_orchestrator
     defs_desc -- Establish system concept --> ea_context_loader
-    defs_cons -- Constrain decisions --> ea_context_loader
-    defs_req -- Introduce requirements --> ea_context_loader
+    defs_req -- Introduce requirements and constrain decisions --> ea_context_loader
     defs_us -- Provide user stories --> ea_context_loader
     diagrams -- Load existing diagram state --> ea_context_loader
     ea_analysis_writer -- Store structured analysis summary --> artf_analysis

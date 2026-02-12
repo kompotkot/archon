@@ -1,6 +1,6 @@
 # Description
 
-Title: Archon
+**Title:** Archon
 
 ## Overview
 
@@ -12,9 +12,9 @@ The system supports the generation and continuous tracking of human-readable arc
 
 If top-level C4 overview diagrams are defined, they can be found at:
 
-- `docs\diagrams\context\` - Level 1 System Context;
-- `docs\diagrams\containers\` - Level 2 Containers;
-- `docs\diagrams\components` - Level 3 Components.
+- `context` - Level 1 System Context;
+- `containers` - Level 2 Containers;
+- `components` - Level 3 Components.
 
 ## Design
 
@@ -41,3 +41,7 @@ It validates relationships against existing diagrams that describe higher-level 
 ### Diagram Agent
 
 The Diagram Agent consumes visualization tasks from the queue, marks them as in progress, and converts the associated text-based VIEW into concrete diagrams according to the rules and documentation of the target visualization format (e.g., Mermaid). It then saves the generated diagrams to the diagrams directory and marks the tasks as completed.
+
+### User stories
+
+Short, numbered narratives that describe desired system behavior/outcomes.
